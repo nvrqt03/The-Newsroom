@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_items"
+        android:title="Topics"
+        app:showAsAction="ifRoom">
+
+        <menu>
+
+            <item
+                android:id="@+id/business"
+                android:title="Business"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/ntertainment"
+                android:title="Entertainment"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/health"
+                android:title="Health"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/science"
+                android:title="Science"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/sports"
+                android:title="Sports"
+                app:showAsAction="never" />
+            <item
+                android:id="tech"
+                android:title="Tech"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
+</menu>
