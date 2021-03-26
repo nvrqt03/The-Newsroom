@@ -1,6 +1,8 @@
 package ajmitchell.android.thenewsroom;
 
 import java.util.List;
+
+import ajmitchell.android.thenewsroom.utils.Constants;
 import retrofit2.Retrofit;
 import ajmitchell.android.thenewsroom.models.NewsModel;
 import retrofit2.converter.gson.GsonConverterFactory;

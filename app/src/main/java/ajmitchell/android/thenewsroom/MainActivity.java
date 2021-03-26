@@ -3,25 +3,19 @@ package ajmitchell.android.thenewsroom;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ajmitchell.android.thenewsroom.Adapters.NewsAdapter;
 import ajmitchell.android.thenewsroom.models.NewsModel;
+import ajmitchell.android.thenewsroom.utils.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

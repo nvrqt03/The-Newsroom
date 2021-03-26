@@ -12,41 +12,57 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/snippet_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:adjustViewBounds="false"
-            android:scaleType="fitCenter" />
-
-        <TextView
-            android:id="@+id/article_title"
-            android:layout_marginLeft="5dp"
-            android:layout_centerVertical="true"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/snippet_image" />
+            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/snippet_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:adjustViewBounds="false"
+                android:scaleType="fitCenter" />
 
-        <TextView
-            android:id="@+id/description"
+            <TextView
+                android:id="@+id/article_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/snippet_image" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/snippet_image" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/description" />
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/description" />
+
+            <ToggleButton
+                android:id="@+id/favorites"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_toRightOf="@+id/date"
+                android:background="@drawable/favorite"
+                android:gravity="bottom"
+                android:layout_margin="5dp"
+                android:textOff=""
+                android:textOn=""/>
+
+        </RelativeLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

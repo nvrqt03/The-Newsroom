@@ -1,4 +1,4 @@
-package ajmitchell.android.thenewsroom;
+package ajmitchell.android.thenewsroom.utils;
 
 public class Constants {
     public static final String BASE_URL = "https://newsapi.org/v2/";

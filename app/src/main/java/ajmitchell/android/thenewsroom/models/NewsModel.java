@@ -3,11 +3,16 @@ package ajmitchell.android.thenewsroom.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Nullable;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "news_table")
 public class NewsModel implements Parcelable {
     @SerializedName("status")
     @Expose
@@ -18,6 +23,9 @@ public class NewsModel implements Parcelable {
     @SerializedName("articles")
     @Expose
     private List<Article> articles = null;
+
+    public NewsModel() {
+    }
 
     protected NewsModel(Parcel in) {
         status = in.readString();
@@ -82,7 +90,11 @@ public class NewsModel implements Parcelable {
         parcel.writeTypedList(articles);
     }
 
-    public static class Article implements Parcelable{
+    @Entity(tableName = "article_table")
+    public static class Article implements Parcelable {
+
+        @PrimaryKey(autoGenerate = true)
+        public int articleId;
 
         @SerializedName("source")
         @Expose
@@ -109,6 +121,9 @@ public class NewsModel implements Parcelable {
         @Expose
         private String content;
 
+        public Article() {
+        }
+
         protected Article(Parcel in) {
             author = in.readString();
             title = in.readString();
@@ -131,8 +146,13 @@ public class NewsModel implements Parcelable {
             }
         };
 
+
         public Source getSource() {
             return source;
+        }
+
+        public int getArticleId() {
+            return articleId;
         }
 
         public void setSource(Source source) {
@@ -194,6 +214,7 @@ public class NewsModel implements Parcelable {
         public void setContent(String content) {
             this.content = content;
         }
+
         @Override
         public String toString() {
             return "Article{" +
@@ -221,30 +242,59 @@ public class NewsModel implements Parcelable {
         }
     }
 
-        public class Source {
+    @Entity(tableName = "source_table")
+    public static class Source implements Parcelable{
 
-            @SerializedName("id")
-            @Expose
-            private Object id;
-            @SerializedName("name")
-            @Expose
-            private String name;
+        @SerializedName("id")
+        @Expose
+        private Object id;
+        @SerializedName("name")
+        @Expose
+        private String name;
 
-            public Object getId() {
-                return id;
-            }
-
-            public void setId(Object id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
+        protected Source(Parcel in) {
+            name = in.readString();
         }
+
+        public static final Creator<Source> CREATOR = new Creator<Source>() {
+            @Override
+            public Source createFromParcel(Parcel in) {
+                return new Source(in);
+            }
+
+            @Override
+            public Source[] newArray(int size) {
+                return new Source[size];
+            }
+        };
+
+        public Source() {
+        }
+
+        public Object getId() {
+            return id;
+        }
+
+        public void setId(Object id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(name);
+        }
+    }
 }
