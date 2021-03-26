@@ -20,10 +20,12 @@ import ajmitchell.android.thenewsroom.models.NewsModel;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private List<NewsModel.Article> articleList;
     private Context context;
+    public OnArticleClickListener mOnArticleClickListener;
 
-    public NewsAdapter(Context context, List<NewsModel.Article> articleList) {
+    public NewsAdapter(Context context, List<NewsModel.Article> articleList, OnArticleClickListener onArticleClickListener) {
         this.context = context;
         this.articleList = articleList;
+        this.mOnArticleClickListener = onArticleClickListener;
     }
 
     @NonNull
@@ -32,7 +34,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View itemView = inflater.inflate(R.layout.news_item, parent, false);
-        ViewHolder holder = new ViewHolder(itemView);
+        ViewHolder holder = new ViewHolder(itemView, mOnArticleClickListener);
         return holder;
     }
 
@@ -64,19 +66,33 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView image;
         public TextView title;
         public TextView description;
         public TextView date;
+        OnArticleClickListener onArticleClickListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnArticleClickListener onArticleClickListener) {
             super(itemView);
+            this.onArticleClickListener = onArticleClickListener;
+
             image = itemView.findViewById(R.id.snippet_image);
             title = itemView.findViewById(R.id.article_title);
             description = itemView.findViewById(R.id.description);
             date = itemView.findViewById(R.id.date);
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onArticleClickListener.onArticleClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnArticleClickListener {
+        void onArticleClick(int position);
     }
 }

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,7 +15,7 @@ import java.util.List;
 import ajmitchell.android.thenewsroom.Adapters.NewsAdapter;
 import ajmitchell.android.thenewsroom.models.NewsModel;
 
-public class TechCrunchActivity extends AppCompatActivity {
+public class TechCrunchActivity extends AppCompatActivity implements NewsAdapter.OnArticleClickListener {
     private static final String TAG = "TechCrunchActivity";
     private RecyclerView recyclerView;
     private NewsAdapter newsAdapter;
@@ -30,7 +32,7 @@ public class TechCrunchActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.techCrunch_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsAdapter = new NewsAdapter(TechCrunchActivity.this, techCrunchList);
+        newsAdapter = new NewsAdapter(TechCrunchActivity.this, techCrunchList, this);
         recyclerView.setAdapter(newsAdapter);
 
         Bundle bundle = getIntent().getExtras();
@@ -41,21 +43,9 @@ public class TechCrunchActivity extends AppCompatActivity {
         techCrunch = bundle.getParcelable("techCrunchStories");
         techCrunchList = techCrunch.getArticles();
         if (techCrunchList != null) {
-            newsAdapter = new NewsAdapter(TechCrunchActivity.this, techCrunchList);
+            newsAdapter = new NewsAdapter(TechCrunchActivity.this, techCrunchList, this);
             recyclerView.setAdapter(newsAdapter);
         }
-//
-//        Bundle bundle2 = getIntent().getExtras();
-//        if (bundle2 == null) {
-//            closeOnError();
-//        }
-//        allNews = bundle2.getParcelable("allTopStories");
-//        allNewsList = allNews.getArticles();
-//        if (allNewsList != null) {
-//            newsAdapter = new NewsAdapter(ArticleDetailActivity.this, allNewsList);
-//            recyclerView.setAdapter(newsAdapter);
-//        }
-
     }
 
     private void closeOnError() {
@@ -63,4 +53,11 @@ public class TechCrunchActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.dataNotAvail, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onArticleClick(int position) {
+        NewsModel.Article clickedArticle = techCrunchList.get(position);
+        String articleUrl = clickedArticle.getUrl();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
+        startActivity(intent);
+    }
 }

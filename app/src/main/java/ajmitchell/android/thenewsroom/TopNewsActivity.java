@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,7 +15,7 @@ import java.util.List;
 import ajmitchell.android.thenewsroom.Adapters.NewsAdapter;
 import ajmitchell.android.thenewsroom.models.NewsModel;
 
-public class TopNewsActivity extends AppCompatActivity {
+public class TopNewsActivity extends AppCompatActivity implements NewsAdapter.OnArticleClickListener {
 
     private static final String TAG = "TopNewsActivity";
     private RecyclerView recyclerView;
@@ -32,7 +34,7 @@ public class TopNewsActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.topNews_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsAdapter = new NewsAdapter(TopNewsActivity.this, topNewsList);
+        newsAdapter = new NewsAdapter(TopNewsActivity.this, topNewsList, this);
         recyclerView.setAdapter(newsAdapter);
 
         Bundle bundle = getIntent().getExtras();
@@ -43,7 +45,7 @@ public class TopNewsActivity extends AppCompatActivity {
         topNews = bundle.getParcelable("allTopStories");
         topNewsList = topNews.getArticles();
         if (topNewsList != null) {
-            newsAdapter = new NewsAdapter(TopNewsActivity.this, topNewsList);
+            newsAdapter = new NewsAdapter(TopNewsActivity.this, topNewsList, this);
             recyclerView.setAdapter(newsAdapter);
         }
     }
@@ -51,5 +53,13 @@ public class TopNewsActivity extends AppCompatActivity {
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.dataNotAvail, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onArticleClick(int position) {
+        NewsModel.Article clickedArticle = topNewsList.get(position);
+        String articleUrl = clickedArticle.getUrl();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
+        startActivity(intent);
     }
 }
