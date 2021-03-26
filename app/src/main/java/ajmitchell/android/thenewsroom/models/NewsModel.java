@@ -1,11 +1,14 @@
 package ajmitchell.android.thenewsroom.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class NewsModel {
+public class NewsModel implements Parcelable {
     @SerializedName("status")
     @Expose
     private String status;
@@ -15,6 +18,28 @@ public class NewsModel {
     @SerializedName("articles")
     @Expose
     private List<Article> articles = null;
+
+    protected NewsModel(Parcel in) {
+        status = in.readString();
+        if (in.readByte() == 0) {
+            totalResults = null;
+        } else {
+            totalResults = in.readInt();
+        }
+        articles = in.createTypedArrayList(Article.CREATOR);
+    }
+
+    public static final Creator<NewsModel> CREATOR = new Creator<NewsModel>() {
+        @Override
+        public NewsModel createFromParcel(Parcel in) {
+            return new NewsModel(in);
+        }
+
+        @Override
+        public NewsModel[] newArray(int size) {
+            return new NewsModel[size];
+        }
+    };
 
     public String getStatus() {
         return status;
@@ -40,7 +65,24 @@ public class NewsModel {
         this.articles = articles;
     }
 
-    public class Article {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(status);
+        if (totalResults == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(totalResults);
+        }
+        parcel.writeTypedList(articles);
+    }
+
+    public static class Article implements Parcelable{
 
         @SerializedName("source")
         @Expose
@@ -66,6 +108,28 @@ public class NewsModel {
         @SerializedName("content")
         @Expose
         private String content;
+
+        protected Article(Parcel in) {
+            author = in.readString();
+            title = in.readString();
+            description = in.readString();
+            url = in.readString();
+            urlToImage = in.readString();
+            publishedAt = in.readString();
+            content = in.readString();
+        }
+
+        public static final Creator<Article> CREATOR = new Creator<Article>() {
+            @Override
+            public Article createFromParcel(Parcel in) {
+                return new Article(in);
+            }
+
+            @Override
+            public Article[] newArray(int size) {
+                return new Article[size];
+            }
+        };
 
         public Source getSource() {
             return source;
@@ -138,6 +202,22 @@ public class NewsModel {
                     ", description='" + description + '\'' +
                     ", url='" + url + '\'' +
                     '}';
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(author);
+            parcel.writeString(title);
+            parcel.writeString(description);
+            parcel.writeString(url);
+            parcel.writeString(urlToImage);
+            parcel.writeString(publishedAt);
+            parcel.writeString(content);
         }
     }
 

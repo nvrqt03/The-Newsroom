@@ -16,7 +16,7 @@ public interface NewsApi {
     );
 
     @GET("top-headlines?country=us")
-    Call<List<NewsModel.Article>> getTopCategory (
+    Call<NewsModel> getTopCategory (
             @Query("category") String category,
             @Query("apiKey") String apikey
     );
@@ -25,5 +25,11 @@ public interface NewsApi {
     Call<List<NewsModel.Article>> getTopSearch (
             @Path("search_item") String searchItem,
             @Query("apiKey") String apiKey
+    );
+
+    @GET("top-headlines")
+    Call<NewsModel> getTechcrunchHeadlines (
+            @Query("sources") String source,
+            @Query("apikey") String apiKey
     );
 }

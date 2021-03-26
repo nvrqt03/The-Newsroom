@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">The Newsroom</string>
+    <string name="dataNotAvail">\"Data not available\"</string>
 </resources>

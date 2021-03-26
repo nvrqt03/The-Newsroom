@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/menu_items"
-        android:title="Topics"
+        android:title="Category"
         app:showAsAction="ifRoom">
 
         <menu>
@@ -14,7 +14,7 @@
                 android:title="Business"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/ntertainment"
+                android:id="@+id/entertainment"
                 android:title="Entertainment"
                 app:showAsAction="never" />
             <item
@@ -30,7 +30,7 @@
                 android:title="Sports"
                 app:showAsAction="never" />
             <item
-                android:id="tech"
+                android:id="@+id/tech"
                 android:title="Tech"
                 app:showAsAction="never" />
         </menu>
