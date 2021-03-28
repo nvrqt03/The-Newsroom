@@ -73,7 +73,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
         NewsModel.Article clickedArticle = articleList.get(position);
         int articleId = articleList.get(position).getArticleId();
         String articleTitle = articleList.get(position).getTitle();
-        Toast.makeText(this, "article id = " + articleTitle, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "article id = " + articleTitle, Toast.LENGTH_SHORT).show();
         String articleUrl = clickedArticle.getUrl();
 //        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
         Intent intent = new Intent(ArticleDetailActivity.this, WebViewActivity.class);

@@ -10,7 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,7 +33,9 @@ public class WebViewActivity extends AppCompatActivity {
     private ArticleViewModel viewModel;
     public Boolean isSaved;
     public FloatingActionButton fab;
+    public ToggleButton button;
     private NewsRepository newsRepository;
+    public NewsDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +54,17 @@ public class WebViewActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: " + articleTitle);
 
-        fab = findViewById(R.id.fab);
-        isSaved = false;
-        fab.setOnClickListener(new View.OnClickListener() {
+        button = findViewById(R.id.fab);
+        button.setChecked(false);
+        button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                if (!isSaved) {
-                    saveArticle();
-                } else {
-                    removeArticle();
-                }
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (compoundButton.isPressed())
+                    if (isChecked) {
+                        saveArticle();
+                    } else {
+                        removeArticle();
+                    }
             }
         });
     }
@@ -75,13 +81,13 @@ public class WebViewActivity extends AppCompatActivity {
                 savedArticles.removeObserver(this);
                 if (article == null) {
                     isSaved = false;
-                    fab.setImageResource(R.drawable.ic_favorite_border_24);
-                } else if (articleTitle == article.getTitle() && !isSaved) {
+                    button.setChecked(false);
+                } else if (articleTitle == article.getTitle() && !button.isChecked()) {
                     isSaved = true;
-                    fab.setImageResource(R.drawable.ic_favorite_filled_24);
+                    button.setChecked(true);
                 } else {
                     isSaved = true;
-                    fab.setImageResource(R.drawable.ic_favorite_filled_24);
+                    button.setChecked(true);
                 }
             }
         });
@@ -92,7 +98,9 @@ public class WebViewActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (!isSaved) {
-                    newsRepository.insert(article);
+                    if (article != null) {
+                        database.newsDao().insertArticle(article);
+                    }
                 }
             }
         });
@@ -103,7 +111,7 @@ public class WebViewActivity extends AppCompatActivity {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                newsRepository.delete(article);
+                database.newsDao().delete(articleTitle);
             }
         });
         Toast.makeText(WebViewActivity.this, "Article removed from saved", Toast.LENGTH_SHORT).show();

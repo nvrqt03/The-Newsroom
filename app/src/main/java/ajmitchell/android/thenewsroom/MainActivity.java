@@ -9,14 +9,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import ajmitchell.android.thenewsroom.dataPersistence.NewsDatabase;
 import ajmitchell.android.thenewsroom.dataPersistence.NewsRepository;
 import ajmitchell.android.thenewsroom.models.NewsModel;
 import ajmitchell.android.thenewsroom.utils.Constants;
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Button techCrunch;
     private NewsRepository newsRepository;
     private ArticleViewModel viewModel;
+    private NewsDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         topStories = findViewById(R.id.us_news_button);
         techCrunch = findViewById(R.id.techcrunch_news_button);
-
+        db = NewsDatabase.getInstance(getApplicationContext());
         topStories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,14 +109,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getSavedArticles() {
-        final LiveData<List<NewsModel.Article>> savedArticles = newsRepository.getAllArticles();
+        final LiveData<List<NewsModel.Article>> savedArticles = db.newsDao().getAllArticles();
         viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication()))
                 .get(ArticleViewModel.class);
         savedArticles.observe(this, new Observer<List<NewsModel.Article>>() {
             @Override
             public void onChanged(List<NewsModel.Article> articles) {
                 viewModel.getAllArticles().removeObserver(this);
-                // Todo: where are we going to send the list of articles? Article detail activity or create a new activity?
+                // Todo: how to send a list to new activity? not arrayList
+                Log.d(TAG, "onChanged: " + articles.toString());
+                Bundle bundle = new Bundle();
+                //bundle.putParcelable("savedArticles", articles);
+                Intent intent = new Intent(MainActivity.this, SavedArticleActivity.class);
+                //intent.putParcelableArrayListExtra("savedArticles", (ArrayList<? extends Parcelable>) articles);
+
+                //startActivity(intent);
             }
         });
 

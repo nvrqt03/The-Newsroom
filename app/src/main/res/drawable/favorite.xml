@@ -5,7 +5,7 @@
         android:drawable="@drawable/ic_favorite_filled_24"
         android:state_checked="true"/>
     <item
-        android:drawable="@drawable/ic_favorite_border_24"
+        android:drawable="@drawable/ic_favorite_white_24"
         android:state_checked="false"/>
 
 </selector>
