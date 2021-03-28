@@ -20,4 +20,5 @@ public class Constants {
     public static final String TECH_CATEGORY = "technology";
     public static final String TECH_TITLE = "Technology";
 
+    public static final String SAVED_ARTICLES = "Saved";
 }

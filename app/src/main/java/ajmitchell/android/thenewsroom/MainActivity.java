@@ -3,6 +3,9 @@ package ajmitchell.android.thenewsroom;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +17,10 @@ import android.widget.Button;
 
 import java.util.List;
 
+import ajmitchell.android.thenewsroom.dataPersistence.NewsRepository;
 import ajmitchell.android.thenewsroom.models.NewsModel;
 import ajmitchell.android.thenewsroom.utils.Constants;
+import ajmitchell.android.thenewsroom.viewModels.ArticleViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar actionBar;
     private Button topStories;
     private Button techCrunch;
+    private NewsRepository newsRepository;
+    private ArticleViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +95,27 @@ public class MainActivity extends AppCompatActivity {
                 getCategory(Constants.TECH_CATEGORY);
                 actionBar.setTitle(Constants.TECH_TITLE);
                 return true;
+            case R.id.saved:
+                getSavedArticles();
+                actionBar.setTitle(Constants.SAVED_ARTICLES);
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    public void getSavedArticles() {
+        final LiveData<List<NewsModel.Article>> savedArticles = newsRepository.getAllArticles();
+        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication()))
+                .get(ArticleViewModel.class);
+        savedArticles.observe(this, new Observer<List<NewsModel.Article>>() {
+            @Override
+            public void onChanged(List<NewsModel.Article> articles) {
+                viewModel.getAllArticles().removeObserver(this);
+                // Todo: where are we going to send the list of articles? Article detail activity or create a new activity?
+            }
+        });
+
+    }
     public void getTopStories() {
         NewsApi newsApi = NewsRetrofit.getNewsApi();
         Call<NewsModel> call = newsApi.getTopHeadlines(Constants.API_KEY);

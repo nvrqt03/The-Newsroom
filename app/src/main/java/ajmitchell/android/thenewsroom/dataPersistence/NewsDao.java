@@ -20,9 +20,15 @@ public interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertArticle(NewsModel.Article article);
 
-    @Query("DELETE FROM article_table WHERE articleId = :id")
-    void delete(int id);
+//    @Query("DELETE FROM article_table WHERE articleId = :id")
+//    void delete(int id);
 
-    @Query("SELECT articleId FROM article_table WHERE articleId = :id")
-    LiveData<NewsModel.Article> getArticleById(int id);
+    @Query("DELETE FROM article_table WHERE title = :articleTitle")
+    void delete(String articleTitle);
+
+//    @Query("SELECT articleId FROM article_table WHERE articleId = :id")
+//    LiveData<NewsModel.Article> getArticleById(int id);
+
+    @Query("SELECT * FROM article_table WHERE title = :articleTitle")
+    LiveData<NewsModel.Article> getArticleByTitle(String articleTitle);
 }

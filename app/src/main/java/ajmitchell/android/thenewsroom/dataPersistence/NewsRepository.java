@@ -31,8 +31,12 @@ public class NewsRepository {
         return allArticles;
     }
 
-    public LiveData<NewsModel.Article> getArticleById(int articleId) {
-        return newsDao.getArticleById(articleId);
+//    public LiveData<NewsModel.Article> getArticleById(int articleId) {
+//        return newsDao.getArticleById(articleId);
+//    }
+
+    public LiveData<NewsModel.Article> getArticleByTitle(String articleTitle) {
+        return newsDao.getArticleByTitle(articleTitle);
     }
 
     private static class InsertArticleAsyncTask extends AsyncTask<NewsModel.Article, Void, Void> {
@@ -56,7 +60,7 @@ public class NewsRepository {
 
         @Override
         protected Void doInBackground(NewsModel.Article... articles) {
-            newsDao.delete(articles[0].getArticleId());
+            newsDao.delete(articles[0].getTitle());
             return null;
         }
     }
