@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -96,6 +97,7 @@ public class NewsModel implements Parcelable {
         @PrimaryKey(autoGenerate = true)
         public int articleId;
 
+        @Ignore
         @SerializedName("source")
         @Expose
         private Source source;
@@ -246,6 +248,7 @@ public class NewsModel implements Parcelable {
     public static class Source implements Parcelable{
 
         @SerializedName("id")
+        @Ignore
         @Expose
         private Object id;
         @SerializedName("name")

@@ -31,7 +31,6 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
     private NewsModel mArticle;
     private List<NewsModel.Article> articleList;
     ActionBar actionBar;
-    ToggleButton favoriteButton;
     public ArticleViewModel articleViewModel;
     public boolean isFavorite;
     private NewsModel.Article individualArticle;
@@ -42,20 +41,6 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
-
-        favoriteButton = findViewById(R.id.favorites);
-        favoriteButton.setChecked(false);
-        favoriteButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (compoundButton.isPressed())
-                    if (isChecked) {
-                        saveToFavorites();
-                    } else {
-                        removeFromFavorites();
-                    }
-            }
-        });
 
         actionBar = getSupportActionBar();
 
@@ -71,14 +56,11 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
 
         mArticle = bundle.getParcelable("categoryStories");
         articleList = mArticle.getArticles();
-        individualArticle = (NewsModel.Article) mArticle.getArticles();
-        individualArticleId = individualArticle.getArticleId();
 
         if (articleList != null) {
             newsAdapter = new NewsAdapter(ArticleDetailActivity.this, articleList, this);
             recyclerView.setAdapter(newsAdapter);
         }
-        isFavorite(individualArticleId);
     }
 
     private void closeOnError() {
@@ -93,47 +75,31 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
         startActivity(intent);
     }
-
-    public void isFavorite(int id) {
-        articleViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
-                .getInstance(this.getApplication()))
-                .get(ArticleViewModel.class);
-        LiveData<NewsModel.Article> favorites = articleViewModel.getArticleById(id);
-        favorites.observe(this, new Observer<NewsModel.Article>() {
-            @Override
-            public void onChanged(NewsModel.Article article) {
-                favorites.removeObserver(this);
-                if (article == null) {
-                    isFavorite = false;
-                    favoriteButton.setChecked(false);
-                } else if (individualArticleId == article.getArticleId() && !favoriteButton.isChecked()) {
-                    isFavorite = true;
-                    favoriteButton.setChecked(true);
-                } else {
-                    isFavorite = true;
-                    favoriteButton.setChecked(true);
-                }
-            }
-        });
-    }
-
-    public void saveToFavorites() {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (!isFavorite)
-                    newsDatabase.newsDao().insertArticle(individualArticle);
-            }
-        });
-        Toast.makeText(ArticleDetailActivity.this, "added to favorites", Toast.LENGTH_SHORT).show();
-    }
-
-    public void removeFromFavorites() {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                newsDatabase.newsDao().delete(individualArticle.getArticleId());
-            }
-        });
-    }
 }
+//    public void isFavorite(int id) {
+//        for (int i = 0; i < articleList.size(); i++) {
+//            if (id == articleList.get(i).getArticleId()) {
+//                individualArticleId = id;
+//            }
+//        }
+//        articleViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
+//                .getInstance(this.getApplication()))
+//                .get(ArticleViewModel.class);
+//        LiveData<NewsModel.Article> favorites = articleViewModel.getArticleById(id);
+//        favorites.observe(this, new Observer<NewsModel.Article>() {
+//            @Override
+//            public void onChanged(NewsModel.Article article) {
+//                favorites.removeObserver(this);
+//                if (article == null) {
+//                    isFavorite = false;
+//                    favoriteButton.setChecked(false);
+//                } else if (individualArticleId == article.getArticleId() && !favoriteButton.isChecked()) {
+//                    isFavorite = true;
+//                    favoriteButton.setChecked(true);
+//                } else {
+//                    isFavorite = true;
+//                    favoriteButton.setChecked(true);
+//                }
+//            }
+//        });
+//    }

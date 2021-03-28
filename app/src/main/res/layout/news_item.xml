@@ -51,17 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/description" />
 
-            <ToggleButton
-                android:id="@+id/favorites"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_toRightOf="@+id/date"
-                android:background="@drawable/favorite"
-                android:gravity="bottom"
-                android:layout_margin="5dp"
-                android:textOff=""
-                android:textOn=""/>
-
         </RelativeLayout>
     </LinearLayout>
 
