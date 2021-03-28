@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheNewsroom">
-        <activity android:name=".TopNewsActivity"></activity>
+        <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".TopNewsActivity" />
         <activity android:name=".TechCrunchActivity" />
         <activity android:name=".ArticleDetailActivity" />
         <activity android:name=".MainActivity">
