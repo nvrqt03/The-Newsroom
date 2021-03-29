@@ -11,7 +11,7 @@ import androidx.room.TypeConverters;
 import ajmitchell.android.thenewsroom.models.NewsModel;
 import ajmitchell.android.thenewsroom.utils.NewsTypeConverter;
 
-@Database(entities = {NewsModel.Article.class}, version = 1, exportSchema = false)
+@Database(entities = {NewsModel.Article.class}, version = 2, exportSchema = false)
 //@TypeConverters(NewsTypeConverter.class)
 public abstract class NewsDatabase extends RoomDatabase {
     public static final String LOG_TAG = NewsDatabase.class.getSimpleName();

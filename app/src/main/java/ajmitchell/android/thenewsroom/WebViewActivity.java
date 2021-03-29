@@ -31,7 +31,6 @@ public class WebViewActivity extends AppCompatActivity {
     public Boolean isSaved;
     public FloatingActionButton fab;
     public ToggleButton button;
-    private NewsRepository newsRepository;
     public NewsDatabase database;
 
     @Override
@@ -39,6 +38,7 @@ public class WebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
 
+        database = NewsDatabase.getInstance(WebViewActivity.this);
         WebView webView = findViewById(R.id.webView);
         Intent intent = getIntent();
 

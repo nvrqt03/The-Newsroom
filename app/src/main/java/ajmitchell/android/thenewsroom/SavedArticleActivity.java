@@ -41,7 +41,7 @@ public class SavedArticleActivity extends AppCompatActivity implements NewsAdapt
         if (article != null) {
             savedArticles = article.getArticles();
         } else {
-            Toast.makeText(this, "No Saved Articles", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Saved Articles", Toast.LENGTH_SHORT).show();
         }
 
 

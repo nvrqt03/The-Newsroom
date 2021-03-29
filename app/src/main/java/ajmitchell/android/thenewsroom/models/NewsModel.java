@@ -3,6 +3,7 @@ package ajmitchell.android.thenewsroom.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -96,9 +97,6 @@ public class NewsModel implements Parcelable {
     @Entity(tableName = "article_table")
     public static class Article implements Parcelable {
 
-        @PrimaryKey(autoGenerate = true)
-        public int articleId;
-
         @Ignore
         @SerializedName("source")
         @Expose
@@ -106,6 +104,9 @@ public class NewsModel implements Parcelable {
         @SerializedName("author")
         @Expose
         private String author;
+
+        @PrimaryKey()
+        @NonNull
         @SerializedName("title")
         @Expose
         private String title;
@@ -153,10 +154,6 @@ public class NewsModel implements Parcelable {
 
         public Source getSource() {
             return source;
-        }
-
-        public int getArticleId() {
-            return articleId;
         }
 
         public void setSource(Source source) {
