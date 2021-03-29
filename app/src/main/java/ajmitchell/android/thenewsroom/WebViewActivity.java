@@ -8,15 +8,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import ajmitchell.android.thenewsroom.dataPersistence.NewsDatabase;
 import ajmitchell.android.thenewsroom.dataPersistence.NewsRepository;
@@ -27,7 +24,7 @@ import ajmitchell.android.thenewsroom.viewModels.ArticleViewModel;
 public class WebViewActivity extends AppCompatActivity {
 
     private static final String TAG = "WebViewActivity";
-    private NewsModel.Article article;
+    private NewsModel.Article mArticle;
     private int articleId;
     private String articleTitle;
     private ArticleViewModel viewModel;
@@ -48,11 +45,12 @@ public class WebViewActivity extends AppCompatActivity {
         String url = intent.getStringExtra("articleUrl");
         webView.loadUrl(url);
 
-        article = intent.getParcelableExtra("article");
-        articleTitle = intent.getStringExtra("articleTitle");
+        mArticle = intent.getParcelableExtra("article");
+        if (mArticle != null) {
+            articleTitle = mArticle.getTitle();
+            Log.d(TAG, "onCreate: " + articleTitle);
+        }
         isFavorite(articleTitle);
-
-        Log.d(TAG, "onCreate: " + articleTitle);
 
         button = findViewById(R.id.fab);
         button.setChecked(false);
@@ -82,7 +80,7 @@ public class WebViewActivity extends AppCompatActivity {
                 if (article == null) {
                     isSaved = false;
                     button.setChecked(false);
-                } else if (articleTitle == article.getTitle() && !button.isChecked()) {
+                } else if (title == article.getTitle() && !button.isChecked()) {
                     isSaved = true;
                     button.setChecked(true);
                 } else {
@@ -98,8 +96,8 @@ public class WebViewActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (!isSaved) {
-                    if (article != null) {
-                        database.newsDao().insertArticle(article);
+                    if (mArticle != null) {
+                        database.newsDao().insertArticle(mArticle);
                     }
                 }
             }
@@ -111,7 +109,9 @@ public class WebViewActivity extends AppCompatActivity {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                database.newsDao().delete(articleTitle);
+                if (mArticle != null) {
+                    database.newsDao().delete(mArticle.getTitle());
+                }
             }
         });
         Toast.makeText(WebViewActivity.this, "Article removed from saved", Toast.LENGTH_SHORT).show();

@@ -36,9 +36,14 @@ public class SavedArticleActivity extends AppCompatActivity implements NewsAdapt
             closeOnError();
         }
 
-        //article = bundle.getParcelable("savedArticles");
-        savedArticles = bundle.getParcelable("savedArticles");
-//        savedArticles = article.getArticles();
+        article = bundle.getParcelable("savedArticles");
+//        savedArticles = bundle.getParcelable("savedArticles");
+        if (article != null) {
+            savedArticles = article.getArticles();
+        } else {
+            Toast.makeText(this, "No Saved Articles", Toast.LENGTH_LONG).show();
+        }
+
 
         if (savedArticles != null) {
             savedAdapter = new NewsAdapter(SavedArticleActivity.this, savedArticles, this);

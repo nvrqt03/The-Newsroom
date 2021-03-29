@@ -71,42 +71,11 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
     @Override
     public void onArticleClick(int position) {
         NewsModel.Article clickedArticle = articleList.get(position);
-        int articleId = articleList.get(position).getArticleId();
-        String articleTitle = articleList.get(position).getTitle();
-        //Toast.makeText(this, "article id = " + articleTitle, Toast.LENGTH_SHORT).show();
         String articleUrl = clickedArticle.getUrl();
-//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
         Intent intent = new Intent(ArticleDetailActivity.this, WebViewActivity.class);
         intent.putExtra("articleUrl", articleUrl);
-        intent.putExtra("articleTitle", articleTitle);
-//        intent.putExtra("article", clickedArticle);
+        intent.putExtra("article", clickedArticle);
         startActivity(intent);
     }
 }
-//    public void isFavorite(int id) {
-//        for (int i = 0; i < articleList.size(); i++) {
-//            if (id == articleList.get(i).getArticleId()) {
-//                individualArticleId = id;
-//            }
-//        }
-//        articleViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
-//                .getInstance(this.getApplication()))
-//                .get(ArticleViewModel.class);
-//        LiveData<NewsModel.Article> favorites = articleViewModel.getArticleById(id);
-//        favorites.observe(this, new Observer<NewsModel.Article>() {
-//            @Override
-//            public void onChanged(NewsModel.Article article) {
-//                favorites.removeObserver(this);
-//                if (article == null) {
-//                    isFavorite = false;
-//                    favoriteButton.setChecked(false);
-//                } else if (individualArticleId == article.getArticleId() && !favoriteButton.isChecked()) {
-//                    isFavorite = true;
-//                    favoriteButton.setChecked(true);
-//                } else {
-//                    isFavorite = true;
-//                    favoriteButton.setChecked(true);
-//                }
-//            }
-//        });
-//    }
+

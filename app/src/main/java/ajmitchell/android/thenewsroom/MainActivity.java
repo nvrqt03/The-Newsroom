@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -118,12 +119,11 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.getAllArticles().removeObserver(this);
                 // Todo: how to send a list to new activity? not arrayList
                 Log.d(TAG, "onChanged: " + articles.toString());
-                Bundle bundle = new Bundle();
-                //bundle.putParcelable("savedArticles", articles);
                 Intent intent = new Intent(MainActivity.this, SavedArticleActivity.class);
-                //intent.putParcelableArrayListExtra("savedArticles", (ArrayList<? extends Parcelable>) articles);
-
-                //startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("articles", new ArrayList<>(articles));
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -140,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, TopNewsActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-                //Log.d(TAG, "onResponse: " + articles.toString());
             }
 
             @Override

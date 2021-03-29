@@ -92,6 +92,7 @@ public class NewsModel implements Parcelable {
         parcel.writeTypedList(articles);
     }
 
+
     @Entity(tableName = "article_table")
     public static class Article implements Parcelable {
 

@@ -59,7 +59,17 @@ public class TopNewsActivity extends AppCompatActivity implements NewsAdapter.On
     public void onArticleClick(int position) {
         NewsModel.Article clickedArticle = topNewsList.get(position);
         String articleUrl = clickedArticle.getUrl();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
+        Intent intent = new Intent(TopNewsActivity.this, WebViewActivity.class);
+        intent.putExtra("articleUrl", articleUrl);
+        intent.putExtra("article", clickedArticle);
         startActivity(intent);
     }
 }
+//    NewsModel.Article clickedArticle = articleList.get(position);
+//    int articleId = articleList.get(position).getArticleId();
+//    String articleUrl = clickedArticle.getUrl();
+//    //        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
+//    Intent intent = new Intent(ArticleDetailActivity.this, WebViewActivity.class);
+//        intent.putExtra("articleUrl", articleUrl);
+//                intent.putExtra("article", clickedArticle);
+//                startActivity(intent);

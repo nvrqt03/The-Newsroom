@@ -15,7 +15,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/fab"
-        android:background="@drawable/ic_favorite_border_24"
+        android:background="@drawable/favorite"
         android:layout_gravity="end|bottom"
         android:text=""
         android:textOff=""

@@ -57,7 +57,9 @@ public class TechCrunchActivity extends AppCompatActivity implements NewsAdapter
     public void onArticleClick(int position) {
         NewsModel.Article clickedArticle = techCrunchList.get(position);
         String articleUrl = clickedArticle.getUrl();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl));
+        Intent intent = new Intent(TechCrunchActivity.this, WebViewActivity.class);
+        intent.putExtra("articleUrl", articleUrl);
+        intent.putExtra("article", clickedArticle);
         startActivity(intent);
     }
 }
