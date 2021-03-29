@@ -110,22 +110,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getSavedArticles() {
-        final LiveData<List<NewsModel.Article>> savedArticles = db.newsDao().getAllArticles();
-        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication()))
-                .get(ArticleViewModel.class);
-        savedArticles.observe(this, new Observer<List<NewsModel.Article>>() {
-            @Override
-            public void onChanged(List<NewsModel.Article> articles) {
-                viewModel.getAllArticles().removeObserver(this);
-                // Todo: how to send a list to new activity? not arrayList
-                Log.d(TAG, "onChanged: " + articles.toString());
-                Intent intent = new Intent(MainActivity.this, SavedArticleActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("articles", new ArrayList<>(articles));
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+        Intent intent = new Intent(MainActivity.this, SavedArticleActivity.class);
+        startActivity(intent);
 
     }
     public void getTopStories() {

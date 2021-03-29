@@ -68,6 +68,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         return articleList.size();
     }
 
+    public void setArticles(List<NewsModel.Article> articles) {
+        this.articleList = articles;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
