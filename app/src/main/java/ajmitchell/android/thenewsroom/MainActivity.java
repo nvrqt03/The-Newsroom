@@ -42,11 +42,15 @@ public class MainActivity extends AppCompatActivity {
     private NewsRepository newsRepository;
     private ArticleViewModel viewModel;
     private NewsDatabase db;
+    public static String PACKAGE_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        PACKAGE_NAME = getApplicationContext().getPackageName();
+        Log.d(TAG, "onCreate: " + PACKAGE_NAME);
 
         actionBar = getSupportActionBar();
         topStories = findViewById(R.id.us_news_button);

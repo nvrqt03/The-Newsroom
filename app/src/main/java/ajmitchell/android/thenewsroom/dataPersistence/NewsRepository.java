@@ -1,6 +1,7 @@
 package ajmitchell.android.thenewsroom.dataPersistence;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
@@ -13,8 +14,8 @@ public class NewsRepository {
     private NewsDao newsDao;
     private LiveData<List<NewsModel.Article>> allArticles;
 
-    public NewsRepository(Application application) {
-        NewsDatabase database = NewsDatabase.getInstance(application);
+    public NewsRepository(Context context) {
+        NewsDatabase database = NewsDatabase.getInstance(context);
         newsDao = database.newsDao();
         allArticles = newsDao.getAllArticles();
     }

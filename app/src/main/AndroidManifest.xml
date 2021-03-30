@@ -11,7 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheNewsroom">
-        <activity android:name=".SavedArticleActivity"></activity>
+        <receiver android:name=".widget.NewsroomWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/newsroom_widget_info" />
+        </receiver>
+
+        <service android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+<!--        careful with bind remote views - if you get permissions wrong, android won't catch this,-->
+<!--        can run into issues where you have an empty list and don't know why-->
+
+        <activity android:name=".SavedArticleActivity" />
         <activity android:name=".WebViewActivity" />
         <activity android:name=".TopNewsActivity" />
         <activity android:name=".TechCrunchActivity" />

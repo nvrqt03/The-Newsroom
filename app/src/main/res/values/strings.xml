@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">The Newsroom</string>
     <string name="dataNotAvail">\"Data not available\"</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="the_newsroom">The Newsroom</string>
 </resources>
