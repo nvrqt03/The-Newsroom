@@ -53,16 +53,19 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
         if (bundle == null) {
             closeOnError();
         }
+        articleList = new ArrayList<>(); // test
 
         mArticle = bundle.getParcelable("categoryStories");
-        articleList = mArticle.getArticles();
-        List<NewsModel.Article> temp = articleList;
+        if (mArticle != null) {
+            articleList = mArticle.getArticles();
+        }
+        List<NewsModel.Article> temp = new ArrayList<>();
+        temp = articleList;
 
         ArrayList<String> newsTitlesForWidget = new ArrayList<>();
 
         for (int i = 0; i < temp.size(); i++) {
             newsTitlesForWidget.add(temp.get(i).getTitle());
-
         }
 
 //        int i = temp.size();

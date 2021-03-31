@@ -15,7 +15,10 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import ajmitchell.android.thenewsroom.ArticleDetailActivity;
+import ajmitchell.android.thenewsroom.MainActivity;
 import ajmitchell.android.thenewsroom.R;
+import ajmitchell.android.thenewsroom.WebViewActivity;
+import ajmitchell.android.thenewsroom.viewModels.ArticleViewModel;
 
 
 /**
@@ -29,15 +32,16 @@ public class NewsroomWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         Intent appIntent = new Intent(context, ArticleDetailActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, appIntent, 0);
+//        appIntent.addCategory(Intent.ACTION_MAIN);
+        appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        appIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.newsroom_widget);
-        views.setOnClickPendingIntent(R.id.widget_grid_view, pendingIntent);
+        views.setPendingIntentTemplate(R.id.widget_grid_view, pendingIntent);
 
-//        appIntent.addCategory(Intent.ACTION_MAIN);
-//        appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-//        appIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
 
 
         //connect our widget code to the remote views service - setRemoteAdapter
@@ -66,7 +70,7 @@ public class NewsroomWidget extends AppWidgetProvider {
     }
 
     private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
-        views.setRemoteAdapter(R.id.widget_gridview_item,
+        views.setRemoteAdapter(R.id.widget_grid_view,
                 new Intent(context, WidgetService.class));
     }
 }

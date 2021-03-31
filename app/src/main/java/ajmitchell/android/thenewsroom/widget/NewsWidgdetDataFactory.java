@@ -34,9 +34,6 @@ public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFac
         titles.addAll(set);
         Log.d(TAG, "initData: " + titles.toString());
 
-//        NewsRepository newsRepository = new NewsRepository(context);
-        //NewsModel.Article article = newsRepository.getArticleByTitle(titles.get(0));
-
         if (titles != null) {
             collection = titles;
         }
@@ -49,7 +46,7 @@ public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public void onCreate() {
-        initData();
+//        initData();
     }
 
     @Override
@@ -71,7 +68,11 @@ public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFac
     public RemoteViews getViewAt(int i) {
         RemoteViews remoteView = new RemoteViews(context.getPackageName(),
                 R.layout.widget_gridview_item);
-        remoteView.setTextViewText(R.id.widget_grid_view, collection.get(i));
+        remoteView.setTextViewText(R.id.widget_gridview_item, collection.get(i));
+
+        Intent fillIntent = new Intent();
+        fillIntent.putExtra(PACKAGE_NAME, i);
+        remoteView.setOnClickFillInIntent(R.id.widget_gridview_item, fillIntent);
         return remoteView;
     }
 

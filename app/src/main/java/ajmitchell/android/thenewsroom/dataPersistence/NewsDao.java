@@ -14,7 +14,7 @@ import ajmitchell.android.thenewsroom.models.NewsModel;
 @Dao
 public interface NewsDao {
 
-    @Query("SELECT * FROM article_table ORDER BY publishedAt")
+    @Query("SELECT * FROM article_table ORDER BY publishedAt DESC")
     LiveData<List<NewsModel.Article>> getAllArticles();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
