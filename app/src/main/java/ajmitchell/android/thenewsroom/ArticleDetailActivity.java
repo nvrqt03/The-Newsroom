@@ -38,6 +38,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
     private NewsModel mArticle;
     private List<NewsModel.Article> articleList;
     ActionBar actionBar;
+    Context context;
 
 
     @Override
