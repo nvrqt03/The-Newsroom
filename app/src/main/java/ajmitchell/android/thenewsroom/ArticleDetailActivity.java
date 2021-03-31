@@ -76,15 +76,13 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
 //        Set<String> set = new HashSet<>();
 //        set.addAll(newsTitlesForWidget);
 //
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor =sharedPreferences.edit();
         Gson gson = new Gson();
         String jsonArticles = gson.toJson(temp);
         editor.putString("articleTitles", jsonArticles);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putStringSet("articleTitles", set);
-//        editor.apply();
+
+        editor.apply();
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(

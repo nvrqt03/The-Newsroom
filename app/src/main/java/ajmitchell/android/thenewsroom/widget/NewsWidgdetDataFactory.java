@@ -25,7 +25,7 @@ import static ajmitchell.android.thenewsroom.MainActivity.PACKAGE_NAME;
 
 public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    List<NewsModel.Article> articles;
+    List<NewsModel.Article> articles = new ArrayList<>();
     Context context;
     Intent intent;
     private String TAG = "NewsWidgetDataFactory";
@@ -33,7 +33,7 @@ public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFac
     private void initData() {
         articles.clear();
 
-        SharedPreferences preferences = context.getSharedPreferences("aricleTitles", Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("articleTitles", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = preferences.getString("articleTitles", "");
         Type type = new TypeToken<List<NewsModel.Article>>(){}.getType();
@@ -63,7 +63,11 @@ public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public int getCount() {
-        return articles.size();
+        if (articles == null) {
+            return 0;
+        } else {
+            return articles.size();
+        }
     }
 
     @Override
