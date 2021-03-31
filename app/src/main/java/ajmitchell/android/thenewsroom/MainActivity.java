@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
                 NewsModel newsDetails = response.body();
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("allTopStories", newsDetails);
+                bundle.putParcelable("categoryStories", newsDetails);
                 Intent intent = new Intent(MainActivity.this, ArticleDetailActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onResponse: " + techcrunch.toString());
                 Intent intent = new Intent(MainActivity.this, ArticleDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("techCrunchStories", newsDetails);
+                bundle.putParcelable("categoryStories", newsDetails);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
