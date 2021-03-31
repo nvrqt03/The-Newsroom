@@ -12,8 +12,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,19 +65,26 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
         List<NewsModel.Article> temp = new ArrayList<>();
         temp = articleList;
 
-        ArrayList<String> newsTitlesForWidget = new ArrayList<>();
 
-        for (int i = 0; i < temp.size(); i++) {
-            newsTitlesForWidget.add(temp.get(i).getTitle());
-        }
 
-        Set<String> set = new HashSet<>();
-        set.addAll(newsTitlesForWidget);
-
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet("articleTitles", set);
-        editor.apply();
+//        ArrayList<String> newsTitlesForWidget = new ArrayList<>();
+//
+//        for (int i = 0; i < temp.size(); i++) {
+//            newsTitlesForWidget.add(temp.get(i).getTitle());
+//        }
+//
+//        Set<String> set = new HashSet<>();
+//        set.addAll(newsTitlesForWidget);
+//
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        Gson gson = new Gson();
+        String jsonArticles = gson.toJson(temp);
+        editor.putString("articleTitles", jsonArticles);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putStringSet("articleTitles", set);
+//        editor.apply();
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(

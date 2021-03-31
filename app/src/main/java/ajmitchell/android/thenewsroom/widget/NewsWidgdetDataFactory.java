@@ -4,10 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,23 +25,20 @@ import static ajmitchell.android.thenewsroom.MainActivity.PACKAGE_NAME;
 
 public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    ArrayList<String> collection = new ArrayList<>();
+    List<NewsModel.Article> articles;
     Context context;
     Intent intent;
     private String TAG = "NewsWidgetDataFactory";
 
     private void initData() {
-        collection.clear();
+        articles.clear();
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE);
-        Set<String> set = sharedPreferences.getStringSet("articleTitles", null);
-        ArrayList<String> titles = new ArrayList<>();
-        titles.addAll(set);
-        Log.d(TAG, "initData: " + titles.toString());
+        SharedPreferences preferences = context.getSharedPreferences("aricleTitles", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("articleTitles", "");
+        Type type = new TypeToken<List<NewsModel.Article>>(){}.getType();
+        articles = gson.fromJson(json, type);
 
-        if (titles != null) {
-            collection = titles;
-        }
     }
 
     public NewsWidgdetDataFactory(Context context, Intent intent) {
@@ -61,17 +63,20 @@ public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public int getCount() {
-        return collection.size();
+        return articles.size();
     }
 
     @Override
     public RemoteViews getViewAt(int i) {
         RemoteViews remoteView = new RemoteViews(context.getPackageName(),
                 R.layout.widget_gridview_item);
-        remoteView.setTextViewText(R.id.widget_gridview_item, collection.get(i));
+        remoteView.setTextViewText(R.id.widget_gridview_item, articles.get(i).getTitle());
 
+        String url = articles.get(i).getUrl();
         Intent fillIntent = new Intent();
         fillIntent.putExtra(PACKAGE_NAME, i);
+        fillIntent.putExtra("articleUrl", url);
+        fillIntent.putExtra("article", articles.get(i));
         remoteView.setOnClickFillInIntent(R.id.widget_gridview_item, fillIntent);
         return remoteView;
     }
@@ -96,3 +101,15 @@ public class NewsWidgdetDataFactory implements RemoteViewsService.RemoteViewsFac
         return false;
     }
 }
+
+
+
+
+//        Set<String> set = sharedPreferences.getStringSet("articleTitles", null);
+//        ArrayList<String> titles = new ArrayList<>();
+//        titles.addAll(set);
+//        Log.d(TAG, "initData: " + titles.toString());
+
+//        if (titles != null) {
+//            collection = titles;
+//        }

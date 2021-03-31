@@ -32,7 +32,7 @@ public class NewsroomWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        Intent appIntent = new Intent(context, ArticleDetailActivity.class);
+        Intent appIntent = new Intent(context, WebViewActivity.class);
 //        appIntent.addCategory(Intent.ACTION_MAIN);
         appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         appIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -41,9 +41,6 @@ public class NewsroomWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.newsroom_widget);
         views.setPendingIntentTemplate(R.id.widget_grid_view, pendingIntent);
-
-
-
 
         //connect our widget code to the remote views service - setRemoteAdapter
         setRemoteAdapter(context, views);
