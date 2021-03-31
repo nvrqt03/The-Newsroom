@@ -34,8 +34,9 @@ public class NewsroomWidget extends AppWidgetProvider {
 
         Intent appIntent = new Intent(context, WebViewActivity.class);
 //        appIntent.addCategory(Intent.ACTION_MAIN);
-        appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        appIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+//        appIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Construct the RemoteViews object
