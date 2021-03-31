@@ -68,9 +68,6 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
             newsTitlesForWidget.add(temp.get(i).getTitle());
         }
 
-//        int i = temp.size();
-//        newsTitlesForWidget.add(temp.get(i).getTitle());
-
         Set<String> set = new HashSet<>();
         set.addAll(newsTitlesForWidget);
 

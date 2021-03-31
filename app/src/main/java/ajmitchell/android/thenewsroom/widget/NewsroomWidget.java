@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import ajmitchell.android.thenewsroom.ArticleDetailActivity;
 import ajmitchell.android.thenewsroom.MainActivity;
 import ajmitchell.android.thenewsroom.R;
+import ajmitchell.android.thenewsroom.TopNewsActivity;
 import ajmitchell.android.thenewsroom.WebViewActivity;
 import ajmitchell.android.thenewsroom.viewModels.ArticleViewModel;
 

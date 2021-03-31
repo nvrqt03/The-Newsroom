@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "569436527865",
+    "project_id": "the-newsroom-b77a1",
+    "storage_bucket": "the-newsroom-b77a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569436527865:android:2819d1e420a652ebf21628",
+        "android_client_info": {
+          "package_name": "ajmitchell.android.thenewsroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569436527865-j8oasvpsq70gd3u3i29j1iag2vlf0336.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnxneTi5kGtg9csCOyrjnZhL4Nl-xOjPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569436527865-j8oasvpsq70gd3u3i29j1iag2vlf0336.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
