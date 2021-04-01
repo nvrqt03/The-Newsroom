@@ -3,6 +3,7 @@ package ajmitchell.android.thenewsroom;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private List<NewsModel.Article> articles;
     private List<NewsModel.Article> techcrunch;
     private ActionBar actionBar;
+    private Toolbar toolbar;
     private Button topStories;
     private Button techCrunch;
     private NewsRepository newsRepository;
@@ -65,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
         PACKAGE_NAME = getApplicationContext().getPackageName();
         Log.d(TAG, "onCreate: " + PACKAGE_NAME);
 
-        actionBar = getSupportActionBar();
+        toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+
+
+//        actionBar = getSupportActionBar();
         topStories = findViewById(R.id.us_news_button);
         techCrunch = findViewById(R.id.techcrunch_news_button);
         db = NewsDatabase.getInstance(getApplicationContext());
@@ -96,31 +102,31 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.business:
                 getCategory(Constants.BUSINESS_CAT);
-                actionBar.setTitle(Constants.BUSINESS_TITLE);
+                toolbar.setTitle(Constants.BUSINESS_TITLE);
                 return true;
             case R.id.entertainment:
                 getCategory(Constants.ENTERTAINMENT_CAT);
-                actionBar.setTitle(Constants.ENTERTAINMENT_TITLE);
+                toolbar.setTitle(Constants.ENTERTAINMENT_TITLE);
                 return true;
             case R.id.health:
                 getCategory(Constants.HEALTH_CAT);
-                actionBar.setTitle(Constants.HEALTH_TITLE);
+                toolbar.setTitle(Constants.HEALTH_TITLE);
                 return true;
             case R.id.science:
                 getCategory(Constants.SCIENCE_CATEGORY);
-                actionBar.setTitle(Constants.SCIENCE_TITLE);
+                toolbar.setTitle(Constants.SCIENCE_TITLE);
                 return true;
             case R.id.sports:
                 getCategory(Constants.SPORTS_CATEGORY);
-                actionBar.setTitle(Constants.SPORTS_TITLE);
+                toolbar.setTitle(Constants.SPORTS_TITLE);
                 return true;
             case R.id.tech:
                 getCategory(Constants.TECH_CATEGORY);
-                actionBar.setTitle(Constants.TECH_TITLE);
+                toolbar.setTitle(Constants.TECH_TITLE);
                 return true;
             case R.id.saved:
                 getSavedArticles();
-                actionBar.setTitle(Constants.SAVED_ARTICLES);
+                toolbar.setTitle(Constants.SAVED_ARTICLES);
             default:
                 return super.onOptionsItemSelected(item);
         }

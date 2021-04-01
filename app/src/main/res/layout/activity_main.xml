@@ -7,34 +7,47 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-        <Button
-            android:id="@+id/us_news_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/techcrunch_news_button"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="20dp"
-            android:text="@string/us_top_stories" />
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_primary"
+        app:titleTextColor="@color/white"
+        android:id="@+id/my_toolbar"/>
 
-        <Button
-            android:id="@+id/techcrunch_news_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="20dp"
-            android:text="@string/techcrunch_top_stories" />
+    <Button
+        android:id="@+id/us_news_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:textColor="@color/white"
+        android:padding="4dp"
+        android:layout_above="@+id/techcrunch_news_button"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="@string/us_top_stories" />
 
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
+    <Button
+        android:id="@+id/techcrunch_news_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:textColor="@color/white"
+        android:padding="4dp"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="@string/techcrunch_top_stories" />
+
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
 
 </RelativeLayout>

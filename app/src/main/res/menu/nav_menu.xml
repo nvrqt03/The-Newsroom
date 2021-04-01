@@ -5,6 +5,7 @@
     <item
         android:id="@+id/menu_items"
         android:title="Category"
+        
         app:showAsAction="ifRoom">
 
         <menu>

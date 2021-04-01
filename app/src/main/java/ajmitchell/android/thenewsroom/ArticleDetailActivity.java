@@ -2,6 +2,7 @@ package ajmitchell.android.thenewsroom;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +38,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
     private NewsAdapter newsAdapter;
     private NewsModel mArticle;
     private List<NewsModel.Article> articleList;
-    ActionBar actionBar;
+//    ActionBar actionBar;
     Context context;
 
 
@@ -46,7 +47,8 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
-        actionBar = getSupportActionBar();
+        Toolbar toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
 
         recyclerView = findViewById(R.id.news_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -66,17 +68,6 @@ public class ArticleDetailActivity extends AppCompatActivity implements NewsAdap
         List<NewsModel.Article> temp = new ArrayList<>();
         temp = articleList;
 
-
-
-//        ArrayList<String> newsTitlesForWidget = new ArrayList<>();
-//
-//        for (int i = 0; i < temp.size(); i++) {
-//            newsTitlesForWidget.add(temp.get(i).getTitle());
-//        }
-//
-//        Set<String> set = new HashSet<>();
-//        set.addAll(newsTitlesForWidget);
-//
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("articleTitles", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor =sharedPreferences.edit();
         Gson gson = new Gson();

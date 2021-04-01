@@ -16,10 +16,20 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        releaseConfig {
+            storeFile file ('upload_keystore.jks')
+            storePassword 'Homie232'
+            keyAlias 'key'
+            keyPassword 'Homie232!'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfigs signingConfigs.releaseConfig
         }
     }
     compileOptions {
