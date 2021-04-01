@@ -14,7 +14,7 @@
             android:layout_above="@+id/techcrunch_news_button"
             android:layout_centerHorizontal="true"
             android:layout_margin="20dp"
-            android:text="US Top Stories" />
+            android:text="@string/us_top_stories" />
 
         <Button
             android:id="@+id/techcrunch_news_button"
@@ -23,7 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
             android:layout_margin="20dp"
-            android:text="Techcrunch Top Stories" />
+            android:text="@string/techcrunch_top_stories" />
 
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"

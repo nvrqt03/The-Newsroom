@@ -4,4 +4,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="the_newsroom">The Newsroom</string>
+    <string name="us_top_stories">US Top Stories</string>
+    <string name="techcrunch_top_stories">Techcrunch Top Stories</string>
 </resources>
