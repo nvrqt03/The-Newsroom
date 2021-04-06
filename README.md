@@ -23,3 +23,5 @@
 ![NR savedArticle](https://user-images.githubusercontent.com/22177989/113740780-a0c6b480-96c6-11eb-9629-b7d857f8b3d6.png)
 
 
+### A widget is available that will open the article from the homescreen
+![NR widget](https://user-images.githubusercontent.com/22177989/113742802-99080f80-96c8-11eb-96b1-6acbfbbda897.png)
