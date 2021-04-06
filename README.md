@@ -4,7 +4,7 @@
 ![NR homescreen](https://user-images.githubusercontent.com/22177989/113739983-ec2c9300-96c5-11eb-9ced-e381feb7fd74.png)
 
 
-### User can also search top stories for the following categories:
+### User can also view top stories for the following categories:
 - Business
 - Entertainment
 - Health
